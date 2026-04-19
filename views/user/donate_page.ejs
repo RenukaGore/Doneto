@@ -1,0 +1,260 @@
+<%-include("style")%>
+<%-include("header")%>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* Main Box */
+.donate-container{
+    width:100%;
+    max-width:100%;
+    background:#111;
+    border-radius:22px;
+    box-shadow:0 35px 80px rgba(0,0,0,.7);
+    overflow:hidden;
+    color: white;
+    animation:fadeUp 1s ease;
+}
+
+/* Header */
+.donate-header{
+    background:linear-gradient(135deg,#ff416c,#ff4b2b);
+    padding:10px;
+    text-align:center;
+}
+.donate-header h1{
+    font-size:34px;
+}
+.donate-header p{
+    opacity:.9;
+}
+
+/* Content */
+.donate-body{
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+    gap:35px;
+    padding:35px;
+}
+
+/* Foundation Card */
+.foundation-card{
+    background:#1b1b1b;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+.foundation-card img{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    margin-bottom:15px;
+}
+.foundation-card h3{
+    margin-bottom:10px;
+}
+.foundation-card p{
+    font-size:14px;
+    color:#bbb;
+    line-height:1.6;
+}
+
+/* Slider */
+.foundation-slider{
+    margin-top:25px;
+    overflow:hidden;
+}
+.slider-track{
+    display:flex;
+    gap:15px;
+    animation:scroll 18s linear infinite;
+}
+.slide{
+    min-width:160px;
+    background:#222;
+    border-radius:14px;
+    padding:15px;
+    text-align:center;
+}
+.slide img{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    margin-bottom:10px;
+}
+@keyframes scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+}
+
+/* Donation Form */
+.form-card{
+    background:#1a1a1a;
+    border-radius:18px;
+    padding:25px;
+}
+.form-group{
+    margin-bottom:22px;
+}
+label{
+    font-size:14px;
+    color:#ccc;
+}
+input, textarea{
+    width:100%;
+    margin-top:8px;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #333;
+    background:#0e0e0e;
+    color:#fff;
+}
+input:focus, textarea:focus{
+    outline:none;
+    border-color:#ff4b2b;
+}
+
+/* Amount Buttons */
+.amount-box{
+    display:flex;
+    gap:12px;
+    margin-top:12px;
+}
+.amount-btn{
+    flex:1;
+    padding:12px;
+    border-radius:25px;
+    border:1px solid #444;
+    background:#151515;
+    color:#fff;
+    cursor:pointer;
+    transition:.3s;
+}
+.amount-btn:hover{
+    background:#ff4b2b;
+}
+.amount-btn.active{
+    background:#ff4b2b;
+    box-shadow:0 8px 20px rgba(255,75,43,.6);
+    transform:scale(1.05);
+}
+
+/* Button */
+.pay-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(135deg,#ff416c,#ff4b2b);
+    font-size:18px;
+    font-weight:600;
+    color:#fff;
+    cursor:pointer;
+    transition:.4s;
+}
+.pay-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(255,75,43,.6);
+}
+
+/* Animation */
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(60px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* Responsive */
+@media(max-width:900px){
+    .donate-body{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+
+<div class="donate-container">
+
+    <!-- Header -->
+    <div class="donate-header">
+        <h1>Make a Donation ❤️</h1>
+        <p>Your kindness can change lives</p>
+    </div>
+
+    <!-- Body -->
+    <div class="donate-body">
+
+        <!-- LEFT -->
+        <div>
+            <div class="foundation-card">
+                <img src="/upload/<%=foundation[0].logo_image%>">
+                <h3><%=foundation[0].foundation_name%></h3>
+                <p>
+                    <%=foundation[0].description%>
+                </p>
+            </div>
+
+            <!-- Slider -->
+            <div class="foundation-slider">
+                <div class="slider-track">
+                    <% foundation_list.map(function(item,i){ %>
+                        <div class="slide">
+                            <img src="/upload/<%=item.logo_image%>">
+                            <p><%=item.foundation_name%></p>
+                        </div>
+                    <% }) %>
+                    <!-- <div class="slide">
+                        <img src="/upload/cow.jpg">
+                        <p>Hope Foundation</p>
+                    </div>
+                    <div class="slide">
+                        <img src="/upload/dog.jpg">
+                        <p>Animal Aid</p>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="form-card">
+            <form action="/proceed_to_pay" method="POST">
+                
+                <input type="hidden" name="foundation_id" value="<%=foundation[0].foundation_id%>">
+
+                <div class="form-group">
+                    <label>Donation Amount (₹)</label>
+                    <input type="number" id="amountInput" name="amount" placeholder="Enter amount">
+
+                    <div class="amount-box">
+                        <button type="button" class="amount-btn" data-amt="500">₹500</button>
+                        <button type="button" class="amount-btn" data-amt="1000">₹1000</button>
+                        <button type="button" class="amount-btn" data-amt="2000">₹2000</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Message (Optional)</label>
+                    <textarea name="message" rows="4" placeholder="Your message or purpose"></textarea>
+                </div>
+
+                <button class="pay-btn">Proceed to Pay</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+const buttons = document.querySelectorAll(".amount-btn");
+const amountInput = document.getElementById("amountInput");
+
+buttons.forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        buttons.forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        amountInput.value = btn.dataset.amt;
+    });
+});
+</script>
+
+<%-include("footer")%>
+

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* BACKGROUND */
+
+        .main-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                radial-gradient(circle at top, #ffffff 0%, #ffffff 60%);
+        }
+
+        /* CONTAINER */
+        .register-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+
+        /* CARD */
+        .register-card {
+            background: rgb(0, 0, 0);
+            backdrop-filter: blur(18px);
+            border-radius: 22px;
+            padding: 30px 30px;
+            box-shadow: 0 0 40px rgba(0, 255, 200, 0.15);
+            animation: fadeSlide 0.8s ease;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* HEADINGS */
+        .register-card h2 {
+            text-align: center;
+            color: #ff5500;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        /* INPUT FIELDS */
+        .field {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 12px 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 15px;
+            border-bottom: 2px solid #444;
+        }
+
+        .field label {
+            position: absolute;
+            top: 12px;
+            left: 10px;
+            color: #aaa;
+            font-size: 14px;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .field span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6200, #ff9365);
+            transition: 0.4s;
+        }
+
+        /* FLOATING LABEL EFFECT */
+        .field input:focus~label,
+        .field input:valid~label {
+            top: -10px;
+            font-size: 12px;
+            color: #fff200;
+        }
+
+        .field input:focus~span {
+            width: 100%;
+        }
+
+        /* BUTTON */
+        .glow-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #ff8800, #bf3c00);
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.4s;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 94, 1, 0.5);
+        }
+
+        .glow-btn i {
+            margin-right: 6px;
+        }
+
+        .glow-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 35px rgba(254, 159, 58, 0.9);
+        }
+
+        /* LOGIN LINK */
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #aaa;
+        }
+
+        .login-link a {
+            color: #00ffd0;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* ANIMATION */
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .toggle {
+            color: #fff200;
+            position: absolute;
+            bottom: 15px;
+            right: -10px;
+            z-index: 9999999;
+            cursor: pointer;
+            font-size: smaller;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="main-wrapper">
+        <div class="register-container">
+
+            <form class="register-card" action="/donor_register" method="post">
+                <h2>✨ Become a Donor</h2>
+                <p class="subtitle">Support causes that matter</p>
+
+                <div class="field">
+                    <input type="text" name="donor_name" required>
+                    <label>Full Name</label>
+                    <span></span>
+                </div>
+
+                <div class="field">
+                    <input type="email" name="donor_email" required>
+                    <label>Email Address</label>
+                    <span></span>
+                </div>
+
+                <div class="field">
+                    <input type="text" name="donor_phone" required>
+                    <label>Phone Number</label>
+                    <span></span>
+                </div>
+                <div class="field">
+                    <input type="text" name="donor_address" required>
+                    <label>Permenent Address</label>
+                    <span></span>
+                </div>
+                <div class="field">
+                    <input type="password" name="password" id="check" onkeyup="checkpass('newp','check')"
+                        placeholder="Password">
+                    <i class="fa fa-eye toggle" onclick="togglePassword('check', this)"></i>
+                    <label>Password</label>
+                    <span></span>
+                </div>
+
+
+
+
+                <button type="submit" class="glow-btn">
+                    <i class="fas fa-heart"></i> Join DoneTo
+                </button>
+
+
+                <p class="login-link">
+                    Already a donor? <a href="/login">Login</a>
+                </p>
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+<script>
+    function checkpass(val_new, val_conf) {
+        var new_pass = document.getElementById(val_new).value;
+        var confirm_pass = document.getElementById(val_conf).value;
+        var button = document.getElementById('change_password')
+        if (new_pass.length < 8) {
+            document.getElementById('new_pass').innerText = "❌ Passwords must have 8 character"
+            button.style = "cursor:not-allowed;"
+            button.disabled = true;
+
+        } else {
+            document.getElementById('new_pass').innerText = ""
+            if (new_pass !== confirm_pass) {
+                document.getElementById('change').innerText = "❌ Passwords Do Not Match"
+                button.style = "cursor:not-allowed;"
+                button.disabled = true;
+
+            } else {
+                document.getElementById('change').innerText = "✅ Passwords Match"
+                button.disabled = false;
+                button.style = "cursor:pointer;"
+
+            }
+        }
+    }
+    function togglePassword(id, icon) {
+        var field = document.getElementById(id);
+        if (field.type === "password") {
+            field.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            field.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+</script>
+
+</html>
+
+<!-- CREATE TABLE donor_details (
+    donor_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    donor_name VARCHAR(255) NOT NULL,
+    donor_email VARCHAR(150) NOT NULL UNIQUE,
+    donor_phone VARCHAR(20),
+
+    donor_address TEXT,
+
+    donor_password VARCHAR(255) NOT NULL
+
+
+);
+ -->

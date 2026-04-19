@@ -1,0 +1,119 @@
+
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                
+
+                
+
+            </div>
+        </main>
+    </div>
+    <style>
+    /* Container styling */
+  .custom-table thead tr{
+        border-radius: 10px;
+    }
+.table-container {
+    padding: 20px;
+    background: #1a1a2e; /* Dark theme background */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin-top: 30px;
+}
+
+/* Base Table Styling */
+.custom-table {
+    color: #ffffff;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Gap between rows */
+}
+
+.custom-table thead th {
+    border: none;
+    color: #4ecca3; /* Accent color */
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    background: #000;
+}
+
+/* Row Animation */
+.table-row {
+    background: #16213e;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover Effect */
+.table-row:hover {
+    transform: scale(1.01);
+    background: #0a294f;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.table-row td {
+    vertical-align: middle;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    background: transparent;
+    border-bottom:2px solid #ffffff71;
+    color: white;
+}
+
+/* Button Styling */
+.btn-approve {
+    background-color: #28a745;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 13px;
+    transition: 0.3s;
+    border: none;
+    margin-right: 5px;
+}
+
+.btn-approve:hover {
+    background-color: #218838;
+    box-shadow: 0 0 10px #28a745;
+}
+
+.btn-reject {
+    background-color: #dc3545;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 13px;
+    transition: 0.3s;
+    border: none;
+}
+
+.btn-reject:hover {
+    background-color: #c82333;
+    box-shadow: 0 0 10px #dc3545;
+}
+
+.site-link {
+    color: #4ecca3;
+    text-decoration: none;
+}
+</style>
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        const menuBtn = document.getElementById("menuBtn");
+        const sidebar = document.getElementById("sidebar");
+
+        menuBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("-translate-x-full");
+        });
+    </script>
+</body>
+</html>

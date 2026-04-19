@@ -1,0 +1,89 @@
+<%-include("navbar")%>
+    <style>
+        .slider{
+            padding: 50px;
+            padding-left: 100px;
+            padding-right: 100px;
+
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            background: transparent;
+            border: 1px solid #ccc;
+        }
+
+        .preview-img {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-update {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border: none;
+            padding: 12px;
+            width: 100%;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-update:hover {
+            transform: scale(1.03);
+        }
+    </style>
+    <h3 style="font-size: larger; font-weight: bolder;">Update Slider</h3>
+    <div class="slider">
+    <form action="/admin/update_slider/<%= slider[0].slider_id %>" method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label>Slider Title</label>
+            <input type="text" name="slider_title" value="<%= slider[0].slider_title %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" name="slider_discription" value="<%= slider[0].slider_discription %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Button Text</label>
+            <input type="text" name="slider_btn_text" value="<%= slider[0].slider_btn_text %>">
+        </div>
+
+        <div class="form-group">
+            <label>Button URL</label>
+            <input type="text" name="slider_btn_url" value="<%= slider[0].slider_btn_url %>">
+        </div>
+
+        <div class="form-group">
+            <label>Current Image</label><br>
+            <img src="/upload/<%= slider[0].slider_image %>" class="preview-img">
+            <input type="hidden" name="old_image" value="<%= slider[0].slider_image %>">
+        </div>
+
+        <div class="form-group">
+            <label>Change Image</label>
+            <input type="file" name="slider_image">
+        </div>
+
+        <button class="btn-update">
+            <i class="fa fa-save"></i> Update Slider
+        </button>
+
+    </form>
+    </div>
+    <%-include("footer")%>

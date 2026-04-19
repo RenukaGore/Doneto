@@ -1,0 +1,171 @@
+
+
+<%- include("navbar", { distribution }) %>
+
+
+<style>
+
+.table-card{
+    background:#0c0c537d;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.table thead{
+    background:#0d6efd;
+    color:#fff;
+}
+.amount{
+    font-weight:600;
+    color:#198754;
+}
+.btn-send{
+    background:#0d6efd;
+    color:#fff;
+    border-radius:25px;
+    padding:6px 14px;
+    font-size:14px;
+}
+.btn-send:hover{
+    background:#084298;
+    color:#fff;
+
+}
+@media(max-width:768px){
+    table thead{display:none;}
+    table tbody tr{
+        display:block;
+        margin-bottom:15px;
+        border-radius:12px;
+        box-shadow:0 5px 15px rgba(0,0,0,.1);
+        padding:10px;
+    }
+    table tbody td{
+        display:flex;
+        justify-content:space-between;
+        padding:8px 10px;
+        border:none;
+    }
+    table tbody td::before{
+        content: attr(data-label);
+        font-weight:600;
+        color:#6c757d;
+    }
+}
+</style>
+
+
+
+<div class="container my-5">
+    <div class="table-card">
+        <h4 class="mb-4 text-light">
+            <i class="fa fa-hand-holding-dollar me-2"></i> Pending Distribution
+        </h4>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Donor Name</th>
+                        <th>Foundation</th>
+                        <th>upi</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                <% if(funds.length > 0){ %>
+                    <% funds.forEach((row, index) => { %>
+                        <tr>
+                            <td data-label="#"><%= index + 1 %></td>
+                            <td data-label="Donor Name"><%= row.donor_name %></td>
+                            <td data-label="Foundation"><%= row.foundation_name %></td>
+                            <td data-label="Foundation"><%= row.upi_id %></td>
+                            <td data-label="Amount" class="amount">₹<%= row.amount %></td>
+                            <td data-label="Date">
+                                <%= row.date %>
+                            </td>
+                            <td data-label="Action">
+                                <a href="/admin/distribute_money/<%= row.donation_id %>" 
+                                   class="btn btn-send">
+                                    <i class="fa fa-paper-plane me-1"></i> Distribute
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            No fund distribution pending
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- distributed list -->
+<!-- 
+<div class="container my-5">
+    <div class="table-card">
+        <h4 class="mb-4 text-dark">
+            <i class="fa fa-hand-holding-dollar me-2"></i> distribution
+        </h4>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Donor Name</th>
+                        <th>Foundation</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                <% if(fund_done.length > 0){ %>
+                    <% fund_done.forEach((row, index) => { %>
+                        <tr>
+                            <td data-label="#"><%= index + 1 %></td>
+                            <td data-label="Donor Name"><%= row.donor_name %></td>
+                            <td data-label="Foundation"><%= row.foundation_name %></td>
+                            <td data-label="Amount" class="amount">₹<%= row.amount %></td>
+                            <td data-label="Date">
+                                <%= row.date %>
+                            </td>
+                            <td data-label="Action">
+                                <a href="/admin/distribute_money/<%= row.donation_id %>" 
+                                   class="btn btn-send">
+                                    <i class="fa fa-paper-plane me-1"></i> Distribute
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            No fund records found
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+
+
+<%-include("footer")%>

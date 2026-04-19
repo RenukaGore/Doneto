@@ -1,0 +1,63 @@
+<!-- Footer -->
+
+<footer class="footer">
+  <div class="footer-container">
+    <!-- About Section -->
+    <div class="footer-section about">
+      <h2>Done-To</h2>
+      <p>We aim to make giving easy and impactful. Join us in making a difference today.</p>
+      <p>Developed by <mark>harish </mark>.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Donate</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="footer-section contact">
+      <h3>Contact Us</h3>
+      <p>Email: <%= site[0].contact_email %>
+      </p>
+      <p>Phone: <%= site[0].phone %>
+      </p>
+      <div class="social-icons">
+        <a href="<%= site[0].facebook %>"><i class="fab fa-facebook-f"></i></a>
+        <a href="<%= site[0].twitter %>"><i class="fab fa-twitter"></i></a>
+        <a href="<%= site[0].instagram %>"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; <%= site[0].footer_text %>
+  </div>
+</footer>
+
+<!-- Include FontAwesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+  const toggle = document.querySelector(".menu-toggle");
+  const nav = document.querySelector(".nav-links");
+  const navbar = document.getElementById("navbar");
+
+  toggle.onclick = () => nav.classList.toggle("active");
+
+  window.addEventListener("scroll", () => {
+    navbar.classList.toggle("scrolled", window.scrollY > 20);
+  });
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.classList.add("hide");
+  });
+</script>
+
+</body>
+
+</html>

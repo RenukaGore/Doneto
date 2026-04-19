@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoneTo Login</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+ <style>
+        .passeye{
+            position: absolute;
+             color: #00000052;
+             font-size: smaller;
+              margin-top: -45px;
+            right: 430px;
+        }
+        .main-wrapper1 {
+            position: absolute;
+            left: 28%;
+            top: -10px;
+            height: 500px;
+            width: 700px;
+            /* display: flex; */
+            justify-content: center;
+            align-items: center;
+            display: none;
+            z-index: 999999;
+        }
+
+        /* CONTAINER */
+        .register-container {
+            width: 100%;
+            max-width: 520px;
+            padding: 20px;
+        }
+
+        /* CARD */
+        .register-card {
+            background: rgb(0, 0, 0);
+            backdrop-filter: blur(18px);
+            border-radius: 22px;
+            height: 500px;
+            padding: 30px 30px;
+            box-shadow: 0 0 40px rgba(0, 255, 200, 0.15);
+            animation: fadeSlide 0.8s ease;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            overflow-y: scroll;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* HEADINGS */
+        .register-card h2 {
+            text-align: center;
+            color: #ff5500;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        /* INPUT FIELDS */
+        .field {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 12px 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 15px;
+            border-bottom: 2px solid #444;
+        }
+
+        .field label {
+            position: absolute;
+            top: 12px;
+            left: 10px;
+            color: #aaa;
+            font-size: 14px;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .field span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6200, #ff9365);
+            transition: 0.4s;
+        }
+
+        /* FLOATING LABEL EFFECT */
+        .field input:focus~label,
+        .field input:valid~label {
+            top: -10px;
+            font-size: 12px;
+            color: #fff200;
+        }
+
+        .field input:focus~span {
+            width: 100%;
+        }
+
+        /* BUTTON */
+        .glow-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #ff8800, #bf3c00);
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.4s;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 94, 1, 0.5);
+        }
+
+        .glow-btn i {
+            margin-right: 6px;
+        }
+
+        .glow-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 35px rgba(254, 159, 58, 0.9);
+        }
+
+        /* LOGIN LINK */
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #aaa;
+        }
+
+        .login-link a {
+            color: #00ffd0;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* ANIMATION */
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .toggle {
+            color: #fff200;
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            z-index: 9999999;
+            cursor: pointer;
+            font-size: smaller;
+        }
+
+        :root {
+            --donor-color: #4f46e5;
+            --foundation-color: #10b981;
+            --admin-color: #334155;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .portal-container {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tab Switcher Styles */
+        .tab-box {
+            display: flex;
+            background: #f1f5f9;
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: white;
+        }
+
+        /* Moving Background for Tabs */
+        .tab-box::after {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(33.33% - 5px);
+            height: calc(100% - 10px);
+            background: var(--donor-color);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .tab-btn:nth-child(2).active~.active-indicator,
+        .tab-box:has(.tab-btn:nth-child(2).active)::after {
+            transform: translateX(100%);
+            background: var(--foundation-color);
+        }
+
+        .tab-box:has(.tab-btn:nth-child(3).active)::after {
+            transform: translateX(200%);
+            background: var(--admin-color);
+        }
+
+        /* Form Animations */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Form Elements */
+        h2 {
+            color: #1e293b;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--donor-color);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: var(--donor-color);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        #foundation .login-btn {
+            background: var(--foundation-color);
+        }
+
+        #admin .login-btn {
+            background: var(--admin-color);
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+        }
+
+        .toggle-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .toggle-text a {
+            color: var(--donor-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .security-note {
+            font-style: italic;
+            color: #ef4444 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="portal-container">
+            <div class="tab-box">
+                <button class="tab-btn active" onclick="switchTab(event, 'donor')">Donor</button>
+                <button class="tab-btn" onclick="switchTab(event, 'foundation')">Foundation</button>
+                <button class="tab-btn" onclick="switchTab(event, 'admin')">Admin</button>
+                <div class="active-indicator"></div>
+            </div>
+
+            <div class="form-content">
+                <div id="donor" class="tab-content active">
+                    <form class="auth-form" action="/save_login" method="post">
+                        <h2>Donor Portal</h2>
+                        <input type="email" placeholder="Email Address" name="donor_email" required>
+                        <input type="password" placeholder="Password" id="pass" name="donor_password"  required>
+                        <i class="fa fa-eye passeye" onclick="togglePassword('pass', this)"></i>
+
+                        <button type="submit" class="login-btn">Login as Donor</button>
+                        <p class="toggle-text" onclick="register()">New here? <a>Create Donor Account</a></p>
+                    </form>
+                    
+                </div>
+
+                <div id="foundation" class="tab-content">
+                    <form class="auth-form" action="/foundation_login" method="post">
+                        <h2>Foundation Portal</h2>
+                        <input type="email" placeholder="Organization Email" name="foundation_email" required>
+                        <input type="password" placeholder="Password" id="f_pass" name="foundation_password" required>
+                        <i class="fa fa-eye passeye" onclick="togglePassword('f_pass', this)"></i>
+
+                        <button type="submit" class="login-btn">Login to Dashboard</button>
+                        <p class="toggle-text">Apply for foundation status? <a href="/foundation_register">Register
+                                Now</a></p>
+                    </form>
+                </div>
+
+                <div id="admin" class="tab-content">
+                    <form class="auth-form">
+                        <h2>Administrator</h2>
+                        <input type="text" placeholder="Admin ID" required>
+                        <input type="password" placeholder="Master Password" required>
+                        <button type="submit" class="login-btn admin-btn">System Login</button>
+                        <p class="toggle-text security-note">Restricted Access Area</p>
+                    </form>
+                </div>
+            </div>
+            <a style="margin-left: 200px; margin-top: 10px;" href="/"><svg xmlns="http://www.w3.org/2000/svg" width="34"
+                    height="34" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3z" />
+                </svg></a>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(evt, portalName) {
+            let contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+
+            let tabs = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+
+            document.getElementById(portalName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        // visibility
+        function togglePassword(id, icon) {
+            var field = document.getElementById(id);
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                field.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
+   
+
+    <!-- register  -->
+    <section>
+        <div id="main-wrapper1" class="main-wrapper1">
+            <div class="register-container">
+
+                <form class="register-card" action="/donor_register" method="post">
+                    <h2>✨ Become a Donor</h2>
+                    <p class="subtitle">Support causes that matter</p>
+
+                    <div class="field">
+                        <input type="text" name="donor_name" required>
+                        <label>Full Name</label>
+                        <span></span>
+                    </div>
+
+                    <div class="field">
+                        <input type="email" name="r_donor_email" required>
+                        <label>Email Address</label>
+                        <span></span>
+                    </div>
+
+                    <div class="field">
+                        <input type="text" name="donor_phone" required>
+                        <label>Phone Number</label>
+                        <span></span>
+                    </div>
+                    <div class="field">
+                        <input type="text" name="donor_address" required>
+                        <label>Permenent Address</label>
+                        <span></span>
+                    </div>
+                    <div class="field">
+                        <input type="password" name="r_password" id="check" onkeyup="checkpass('check')"
+                             required>
+                        <i class="fa fa-eye toggle" onclick="togglePassword('check', this)"></i>
+                        <label>Password</label>
+                        <span></span>
+                    </div>
+                        <p class="d-inline " style="color: white;" id="msg"></p>
+
+
+
+
+
+                    <button type="submit" id="register" class="glow-btn">
+                        <i class="fas fa-heart"></i> Join DoneTo
+                    </button>
+
+
+                    <p class="login-link">
+                        Already a donor? <a href="/login">Login</a>
+                    </p>
+                </form>
+
+            </div>
+        </div>
+
+</body>
+
+<script>
+    function register() {
+        document.getElementById('main-wrapper1').style = "display:block"
+    }
+    function checkpass(val) {
+        var new_pass = document.getElementById(val).value;
+        var button = document.getElementById('register')
+        console.log(new_pass.length)
+        if (new_pass.length < 8) {
+            document.getElementById('msg').innerText = "❌ Passwords must have 8 character"
+            button.style = "cursor:not-allowed;"
+            button.disabled = true;
+        } else {
+            document.getElementById('msg').innerText = " "
+            button.disabled = false;
+            button.style = "cursor:pointer;"
+        }
+    }
+    function togglePassword(id, icon) {
+        var field = document.getElementById(id);
+        if (field.type === "password") {
+            field.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            field.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+</script>
+</section>
+</body>
+
+</html>

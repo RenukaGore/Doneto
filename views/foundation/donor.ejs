@@ -1,0 +1,125 @@
+<%-include("navbar")%>
+<div class="topbar d-flex align-items-center justify-content-between bg-dark">
+        <button class="btn btn-light d-md-none" id="menuToggle">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <h4 class="fw-bold text-light">
+                <i class="fa fa-hand-holding-dollar text-success me-2"></i>
+                Donor Details
+            </h4>
+
+        <div class="admin-profile d-flex align-items-center">
+            <img src="/upload/<%= foundation[0].logo_image %>" alt="Admin">
+        </div>  
+    </div>
+<style>
+    .card {
+    border-radius: 20px;
+    background-color: rgba(127, 127, 127, 0.662);
+        animation: fadeUp 1s ease;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f3f6ff;
+    transition: 0.3s ease;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+
+</style>
+    <div class="container-fluid p-4 d-detail">
+
+        <div class="card shadow-sm rounded-4 p-4">
+
+            <div class="d-flex justify-content-between text-white align-items-center mb-4">
+                <h4><i class="fa fa-users me-2"></i> Donors List</h4>
+                <input type="text" id="searchInput" class="form-control w-25" placeholder="Search donor...">
+            </div>
+
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>#</th>
+                            <th>Donor Name</th>
+                            <th>Email</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="donorTable">
+
+                        <% donors.forEach((row, index)=> { %>
+                            <tr>
+                                <td>
+                                    <%= index + 1 %>
+                                </td>
+                                <td>
+                                    <%= row.donor_name %>
+                                </td>
+                                <td>
+                                    <%= row.donor_email %>
+                                </td>
+                                <td class="text-success fw-bold">
+                                    ₹<%= row.amount %>
+                                </td>
+                                <td>
+                                    <%= row.date %>
+                                </td>
+                                <td>
+                                    <% if(row.distribution==='pending' ){ %>
+                                        <span class="badge bg-warning text-dark">
+                                            Pending
+                                        </span>
+                                        <% } else { %>
+                                            <span class="badge bg-success">
+                                                Distributed
+                                            </span>
+                                            <% } %>
+                                </td>
+                            </tr>
+                            <% }) %>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    let value = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#donorTable tr");
+
+    rows.forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(value) 
+            ? "" 
+            : "none";
+    });
+});
+</script>
+
+<%-include("footer")%>

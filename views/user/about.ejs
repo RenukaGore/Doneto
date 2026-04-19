@@ -1,0 +1,125 @@
+
+
+<%- include("style") %>
+<%- include("header") %>
+
+<!-- HERO VIDEO -->
+<section class="hero-video">
+    <video autoplay muted loop>
+        <source src="/upload/hero_video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content" data-aos="fade-up">
+        <h1>About <span>DoneTo</span></h1>
+        <p class="text-white">Your kindness. Real impact. Verified foundations.</p>
+    </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="section text-white">
+    <div class="container" data-aos="fade-up">
+        <h2>Who We Are</h2>
+        <p class="center-text">
+            <strong>DoneTo</strong> is a secure donation platform connecting donors
+            with verified foundations. Every foundation is approved by admin
+            to ensure trust, transparency, and real-world impact.
+        </p>
+    </div>
+</section>
+
+<!-- COUNTERS -->
+<section class="counters">
+    <div class="container grid-3">
+        <div class="counter-box" data-aos="zoom-in">
+            <h3 class="counter" data-target="<%= foundation_list.length %>">0</h3>
+            <p>Verified Foundations</p>
+        </div>
+        <div class="counter-box" data-aos="zoom-in" data-aos-delay="150">
+            <h3 class="counter" data-target="<%= donor.length %>">0</h3>
+            <p>Happy Donors</p>
+        </div>
+        <div class="counter-box" data-aos="zoom-in" data-aos-delay="300">
+            <h3 class="counter" data-target="<%= donation.length %>">0</h3>
+            <p>Total Donations</p>
+        </div>
+    </div>
+</section>
+
+<!-- VISION / MISSION -->
+<section class="section dark text-white">
+    <div class="container grid-2">
+        <div class="info-card" data-aos="fade-right">
+            <i class="fas fa-eye"></i>
+            <h3>Our Vision</h3>
+            <p>
+                To build a transparent ecosystem where every donation
+                creates measurable social impact.
+            </p>
+        </div>
+
+        <div class="info-card" data-aos="fade-left">
+            <i class="fas fa-bullseye"></i>
+            <h3>Our Mission</h3>
+            <p>
+                To empower donors and foundations using technology,
+                trust, and responsible giving.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- IMPACT AREAS -->
+<section class="section text-white">
+    <div class="container">
+        <h2 data-aos="fade-up">Our Impact Areas</h2>
+        <div class="grid-3 impact-grid">
+            <div data-aos="flip-left">📚 Education</div>
+            <div data-aos="flip-left">🏥 Healthcare</div>
+            <div data-aos="flip-left">👶 Child Welfare</div>
+            <div data-aos="flip-left">👩 Women Empowerment</div>
+            <div data-aos="flip-left">🍽 Hunger Relief</div>
+            <div data-aos="flip-left">🌱 Environment</div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" data-aos="zoom-in">
+    <h2>Your Donation Can Change Lives</h2>
+    <p>Join DoneTo and make a difference today.</p>
+    <a href="/foundation_page" class="cta-btn">Donate Now</a>
+</section>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    // AOS
+AOS.init({
+    duration: 1200,
+    once: true
+});
+
+// Counter Animation
+const counters = document.querySelectorAll(".counter");
+
+counters.forEach(counter => {
+    const update = () => {
+        const target = +counter.dataset.target;
+        const current = +counter.innerText;
+        const increment = target / 200;
+
+        if (current < target) {
+            counter.innerText = Math.ceil(current + increment);
+            setTimeout(update, 15);
+        } else {
+            counter.innerText = target.toLocaleString();
+        }
+    };
+    update();
+});
+
+</script>
+<%- include("footer") %>
+
+<!-- JS -->
+
+

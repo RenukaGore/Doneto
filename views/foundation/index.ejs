@@ -1,0 +1,73 @@
+<%-include("navbar") %>
+    
+    <!-- CARDS -->
+<div class="topbar d-flex align-items-center justify-content-between bg-dark">
+        <button class="btn btn-light d-md-none" id="menuToggle">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <h4 class="fw-bold text-light">
+                <i class="fa fa-hand-holding-dollar text-success me-2"></i>
+                Dashboard
+            </h4>
+
+        <div class="admin-profile d-flex align-items-center">
+            <img src="/upload/<%= foundation[0].logo_image %>" alt="Admin">
+        </div>  
+    </div>
+<main id="main-content" style="padding: 30px; background: #080e17; min-height: 100vh;">
+    
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="stat-card" style="background:#fff; padding:25px; border-radius:20px;">
+                <h6 class="text-muted">Total Donors</h6>
+                <h2 class="fw-bold"><%= totalDonors %></h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card" style="background:#fff; padding:25px; border-radius:20px;">
+                <h6 class="text-muted">Total Funds Raised</h6>
+                <h2 class="fw-bold text-success">₹<%= totalFunds %></h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card" style="background:#fff; padding:25px; border-radius:20px;">
+                <h6 class="text-muted">Pending Payouts</h6>
+                <h2 class="fw-bold text-warning">₹<%= pendingPayouts %></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm p-4" style="border-radius:20px;">
+        <h5 class="fw-bold mb-4">Your Donation Trends (Monthly)</h5>
+        <div style="height: 350px;">
+            <canvas id="foundationChart"></canvas>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('foundationChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: <%- chartLabels %>,
+            datasets: [{
+                label: 'Funds Received (₹)',
+                data: <%- chartValues %>,
+                borderColor: '#e53935',
+                backgroundColor: 'rgba(229, 57, 53, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
+
+
+<%-include("footer") %>

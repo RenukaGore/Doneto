@@ -1,0 +1,58 @@
+
+<%-include("style")%>
+<%-include("header")%>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-7 pt-3">
+      <img style="width: 100%; height: 100%;" src="/upload/happay.png" alt="">
+    </div>
+ 
+<div class="col-md-5 pt-3">
+<div class="donation-card">
+
+  <!-- Header -->
+  <div class="donation-header">
+    <h2>Make a Donation</h2>
+    <p>Your support can change lives ❤️</p>
+  </div>
+
+  <!-- Foundation Info -->
+  <div class="foundation-box">
+    <img src="/upload/<%=foundation[0].logo_image%>" alt="Foundation Logo">
+    <div>
+      <h4><%=foundation[0].foundation_name%></h4>
+      <small>Verified NGO</small>
+    </div>
+  </div>
+
+  <!-- Donation Form -->
+  <form action="/proceed_to_pay" method="post">
+    <input type="text" name="foundation_id" value="<%=foundation[0].foundation_id%>" class="d-none">
+    <div class="input-group">
+      <label>Donation Amount (₹) <sup style="color: red;">*</sup></label>
+      <input type="number" name="amount" placeholder="Enter amount" min="50" required>
+    </div>
+
+    <div class="input-group">
+      <label>Message (Optional)</label>
+      <textarea name="message" rows="3" placeholder="Your message..."></textarea>
+    </div>
+
+    <button type="submit" class="pay-btn">
+      Proceed to Pay
+    </button>
+
+  </form>
+
+  <div class="secure-text">
+    🔒 100% Secure Payment
+  </div>
+
+</div>
+</div>
+ </div>
+</div>
+
+<%-include("footer")%>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard | Doneto (Dark)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            color: #eee;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #121212;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            animation: fadeIn 1s ease;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            padding: 25px;
+        }
+
+        .header a {
+            position: absolute;
+            right: 50px;
+            top: 60px;
+            color: white;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .card {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            border: none;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        thead {
+            background: #2a2a2a;
+        }
+
+        tbody tr:hover {
+            background: #1a1a1a;
+        }
+
+        .invoice-btn {
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: #ff512f;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media(max-width:900px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .back-btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            background: #111;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            opacity: .8;
+        }
+
+        .vali_msg {
+            font-size: smaller;
+        }
+
+        .toggle {
+            position: absolute;
+            margin-top: 25px;
+            margin-left: -25px;
+            z-index: 9999999;
+            cursor: pointer;
+            font-size: smaller;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+
+        <div class="header">
+            <h2>Welcome, <%= donor[0].donor_name %> 🌙</h2>
+            <p>Your Profile & History</p>
+            <a style="margin-left: 200px;" href="/"><button class="back-btn">← Back</button></a>
+        </div>
+
+        <div class="content">
+
+            <!-- LEFT SIDE -->
+            <div>
+                <div class="card">
+                    <h3>User Profile</h3>
+                    <p><strong>Name:</strong>
+                        <%= donor[0].donor_name %>
+                    </p>
+                    <p><strong>Email:</strong>
+                        <%= donor[0].donor_email %>
+                    </p>
+                    <p><strong>Phone:</strong>
+                        <%= donor[0].donor_phone %>
+                    </p>
+                </div>
+
+                <div class="card" style="margin-top:20px;">
+                    <h3>Edit Profile</h3>
+                    <form method="post" action="/update-profile">
+                        <input type="text" name="donor_name" placeholder="Full Name">
+                        <input type="email" name="donor_email" placeholder="Email">
+                        <input type="text" name="donor_phone" placeholder="Phone">
+                        <button>Update Profile</button>
+                    </form>
+                </div>
+
+                <div class="card" style="margin-top:20px;">
+                    <h3>Change Password</h3>
+                    <form method="post" action="/change_password">
+                        <input type="password" id="cuurentp" name="current" placeholder="Current Password"><i class="fa fa-eye toggle" onclick="togglePassword('cuurentp', this)"></i>
+                        <input type="password" id="newp" name="new" placeholder="New Password"><i class="fa fa-eye toggle" onclick="togglePassword('newp', this)"></i>
+                        <p class="vali_msg" id="new_pass"></p>
+                        <input type="password" name="confirm" id="confirmp" onkeyup="checkpass('newp','confirmp')"
+                            placeholder="Confirm Password"><i class="fa fa-eye toggle" onclick="togglePassword('confirmp', this)"></i>
+                        <p class="vali_msg" id="change"></p>
+                        <button id="change_password">Change Password</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="card">
+                <h3>Donation History</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Foundation</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Invoice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% donations.forEach(d=> { %>
+                            <tr>
+                                <td>
+                                    <%= d.date %>
+                                </td>
+                                <td>
+                                    <%= d.foundation_name %>
+                                </td>
+                                <td>₹<%= d.amount %>
+                                </td>
+                                <td>Paid</td>
+                                <td>
+                                    <a href="/invoice/pdf/<%= d.donation_id %>" class="invoice-btn">Download</a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- <div class="dashboard">
+
+    <div class="header">
+        <h2>Welcome, Harish 🌙</h2>
+        <p>Dark Mode Donation Dashboard</p>
+    </div>
+
+    <div class="content"> -->
+
+    <!-- LEFT
+        <div>
+            <div class="card">
+                <h3>User Profile</h3>
+                <div class="profile-info">
+                    <p><strong>Name:</strong> Harish Gore</p>
+                    <p><strong>Email:</strong> harish@gmail.com</p>
+                    <p><strong>Phone:</strong> 9876543210</p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top:25px;">
+                <h3>Edit Profile</h3>
+                <input type="text" placeholder="Full Name">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Phone">
+                <button>Update Profile</button>
+            </div>
+
+            <div class="card" style="margin-top:25px;">
+                <h3>Change Password</h3>
+                <input type="password" placeholder="Current Password">
+                <input type="password" placeholder="New Password">
+                <input type="password" placeholder="Confirm Password">
+                <button>Change Password</button>
+            </div>
+        </div>
+
+        <-- RIGHT -->
+    <!-- <div class="card">
+            <h3>Donation History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Foundation</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Invoice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12 Jan 2026</td>
+                        <td>Helping Hands</td>
+                        <td>₹2,000</td>
+                        <td><span class="status paid">Paid</span></td>
+                        <td><a href="#" class="invoice-btn">Download</a></td>
+                    </tr>
+                    <tr>
+                        <td>02 Feb 2026</td>
+                        <td>Hope Foundation</td>
+                        <td>₹1,500</td>
+                        <td><span class="status paid">Paid</span></td>
+                        <td><a href="#" class="invoice-btn">Download</a></td>
+                    </tr>
+                    <tr>
+                        <td>15 Feb 2026</td>
+                        <td>Care Trust</td>
+                        <td>₹3,000</td>
+                        <td><span class="status paid">Paid</span></td>
+                        <td><a href="#" class="invoice-btn">Download</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div> -->
+    <script>
+        function checkpass(val_new, val_conf) {
+            var new_pass = document.getElementById(val_new).value;
+            var confirm_pass = document.getElementById(val_conf).value;
+            var button = document.getElementById('change_password')
+            if (new_pass.length < 8) {
+                document.getElementById('new_pass').innerText = "❌ Passwords must have 8 character"
+                button.style = "cursor:not-allowed;"
+                button.disabled = true;
+
+            } else {
+                document.getElementById('new_pass').innerText = ""
+                if (new_pass !== confirm_pass) {
+                    document.getElementById('change').innerText = "❌ Passwords Do Not Match"
+                    button.style = "cursor:not-allowed;"
+                    button.disabled = true;
+
+                } else {
+                    document.getElementById('change').innerText = "✅ Passwords Match"
+                    button.disabled = false;
+                    button.style = "cursor:pointer;"
+
+                }
+            }
+        }
+        function togglePassword(id,icon) {
+            var field = document.getElementById(id);
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                field.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+
+</html>

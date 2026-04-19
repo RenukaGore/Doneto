@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Donation Invoice | Doneto</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#f4f6f8;padding:40px;}
+.invoice-box{
+    max-width:800px;
+    margin:auto;
+    background:#fff;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.1);
+}
+.header{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:2px solid #eee;
+    padding-bottom:20px;
+}
+.logo{
+    font-size:28px;
+    font-weight:600;
+    color:#4a00e0;
+}
+.title{text-align:right;}
+.info{
+    display:flex;
+    justify-content:space-between;
+    margin:30px 0;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th,td{
+    padding:14px;
+    border-bottom:1px solid #eee;
+}
+thead{background:#f0f0f0;}
+.total{
+    margin-top:30px;
+    display:flex;
+    justify-content:flex-end;
+}
+.total div{
+    width:300px;
+}
+.total div p{
+    display:flex;
+    justify-content:space-between;
+    margin:8px 0;
+}
+.grand{
+    font-weight:600;
+    font-size:18px;
+    border-top:2px solid #000;
+    padding-top:10px;
+}
+.print{
+    margin-top:30px;
+    text-align:center;
+}
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    background:linear-gradient(135deg,#8e2de2,#4a00e0);
+    color:#fff;
+    cursor:pointer;
+}
+@media print{
+    button{display:none;}
+    body{background:#fff;padding:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="invoice-box">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">DoneTo</div>
+        <div class="title">
+            <h2>Donation Invoice</h2>
+            <p>Invoice ID: DN-<%= invoice.donation_id %></p>
+            <p>Date: <%= invoice.date%></p>
+        </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="info">
+        <div>
+            <p><strong>Donor</strong></p>
+            <p><%= invoice.donor_name %></p>
+            <p><%= invoice.donor_email %></p>
+            <p><%= invoice.phone %></p>
+        </div>
+        <div>
+            <p><strong>Foundation</strong></p>
+            <p><%= invoice.foundation_name %></p>
+            <p><%= invoice.foundation_email %></p>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Transaction ID</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Charity Donation</td>
+                <td><%= invoice.transaction_id %></td>
+                <td>₹<%= invoice.amount %></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- TOTAL -->
+    <div class="total">
+        <div>
+            <p><span>Subtotal</span><span>₹<%= invoice.amount %></span></p>
+            <p><span>Platform Fee</span><span>₹0</span></p>
+            <p class="grand"><span>Total Paid</span><span>₹<%= invoice.amount %></span></p>
+        </div>
+    </div>
+
+    <p style="text-align:center;margin-top:30px;color:#666;">
+        Thank you for your generous donation ❤️
+    </p>
+
+    <div class="print">
+        <button onclick="window.print()">Download / Print Invoice</button>
+    </div>
+
+</div>
+
+</body>
+</html>

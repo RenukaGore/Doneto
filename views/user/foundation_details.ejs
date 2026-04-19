@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title><%= foundation[0].foundation_name %> | Donate</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+}
+
+.header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.header img {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #fff;
+  margin-top: 6px;
+}
+
+.approved { background: #2e7d32; }
+.pending { background: #f9a825; }
+.rejected { background: #c62828; }
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-left: 4px solid #1976d2;
+  padding-left: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 15px;
+}
+
+.box {
+  background: #f8fafc;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.box span {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.social a {
+  margin-right: 12px;
+  text-decoration: none;
+  color: #1976d2;
+  font-weight: bold;
+}
+
+.donate {
+  text-align: center;
+}
+
+.donate input {
+  width: 200px;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: #0d47a1;
+}
+
+@media(max-width:600px){
+  .header { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="card">
+  <div class="header">
+    <img src="/upload/<%= foundation[0].logo_image %>" alt="Logo">
+    <div>
+      <h2><%= foundation[0].foundation_name %></h2>
+
+      <% if (foundation[0].approval === 'approved') { %>
+        <span class="badge approved">Approved</span>
+      <% } else if (foundation[0].approval === 'pending') { %>
+        <span class="badge pending">Pending</span>
+      <% } else { %>
+        <span class="badge rejected">Rejected</span>
+      <% } %>
+
+      <div style="margin-top:6px;font-size:14px;">
+        Category: <b><%= foundation[0].category %></b> |
+        Since: <b><%= foundation[0].created_year %></b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="card">
+  <div class="section-title">About Foundation</div>
+  <p><%= foundation[0].description %></p>
+</div>
+
+<!-- CONTACT -->
+<div class="card">
+  <div class="section-title">Contact Details</div>
+  <div class="grid">
+    <div class="box"><span>Email</span><%= foundation[0].email %></div>
+    <div class="box"><span>Phone</span><%= foundation[0].phone %></div>
+    <div class="box"><span>Address</span><%= foundation[0].address %></div>
+    <div class="box"><span>Website</span>
+      <a href="<%= foundation[0].website %>" target="_blank"><%= foundation[0].website %></a>
+    </div>
+  </div>
+</div>
+
+<!-- SOCIAL -->
+<div class="card">
+  <div class="section-title">Social Media</div>
+  <div class="social">
+    <a href="<%= foundation[0].facebook %>" target="_blank">Facebook</a>
+    <a href="<%= foundation[0].instagram %>" target="_blank">Instagram</a>
+    <a href="<%= foundation[0].twitter %>" target="_blank">Twitter</a>
+  </div>
+</div>
+
+<!-- DONATE -->
+<div class="card donate">
+  <div class="section-title">Donate to this Foundation</div>
+
+  <form action="/proceed_to_pay" method="POST">
+    <input type="hidden" name="foundation_id" value="<%=foundation[0].foundation_id%>" class="d-none">
+    <input type="number" name="amount" placeholder="Enter Amount ₹" required>
+    <br>
+    <button class="btn">Donate Now ❤️</button>
+  </form>
+
+  
+</div>
+
+</div>
+</body>
+</html>

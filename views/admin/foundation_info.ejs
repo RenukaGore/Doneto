@@ -1,0 +1,39 @@
+<%-include("navbar") %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<div class="foundation-wrapper">
+
+    <div class="foundation-card">
+        <div class="foundation-header">
+            <img src="/upload/<%= foundation_info[0].logo_image %>" class="foundation-logo">
+            <div>
+                <h2 style="text-transform:uppercase;"><%= foundation_info[0].foundation_name %></h2><br>
+                <span style="text-transform:capitalize;" class="status active"><%= foundation_info[0].status %></span>
+                <span style="text-transform:capitalize;" class="approval <%= foundation_info[0].approval %>"><%= foundation_info[0].approval %></span>
+            </div>
+        </div>
+
+        <p class="foundation-desc">
+            <%= foundation_info[0].description %>
+        </p>
+
+        <div class="foundation-info">
+            <div><i class="fa-solid fa-id-badge"></i> <b>ID:</b> <%= foundation_info[0].foundation_id %></div>
+            <div><i class="fa-solid fa-envelope"></i> <%= foundation_info[0].email %></div>
+            <div><i class="fa-solid fa-phone"></i> +91 <%= foundation_info[0].phone %></div>
+            <div><i class="fa-solid fa-location-dot"></i> <%= foundation_info[0].address %></div>
+            <div><i class="fa-solid fa-globe"></i> <a href="<%= foundation_info[0].website %>"><%= foundation_info[0].website %></a></div>
+            <div><i class="fa-solid fa-calendar"></i> Founded: <%= foundation_info[0].created_year %></div>
+        </div>
+
+        <div class="social-links">
+            <a href="<%= foundation_info[0].facebook %>"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="<%= foundation_info[0].instagram %>"><i class="fa-brands fa-instagram"></i></a>
+            <a href="<%= foundation_info[0].twitter %>"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+    </div>
+
+</div>
+
+
+<%-include("footer") %>

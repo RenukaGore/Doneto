@@ -1,0 +1,100 @@
+<%-include("navbar") %>
+<div class="topbar d-flex align-items-center justify-content-between bg-dark">
+        <button class="btn btn-light d-md-none" id="menuToggle">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <h4 class="mb-0">Update Portal</h4>
+
+        <div class="admin-profile d-flex align-items-center">
+            <img src="/upload/<%= foundation[0].logo_image %>" alt="Admin">
+        </div>  
+    </div>
+<div class="container align-items-center" style="background-color: rgba(23, 57, 70, 0.53);">
+        <form class="animated-form" action="/foundation/update_detail" method="post" enctype="multipart/form-data">
+            <!-- <h2 class="text-white">Foundation Registration</h2>
+            <p class="subtitle">Enter your organization's details below</p> -->
+
+            <div class="form-grid">
+                <div class="input-group full-width">
+                    <input type="text" name="foundation_name" value="<%= foundation[0].foundation_name %>" >
+                    <label>Foundation Name</label>
+                </div>
+
+                <div class="input-group full-width">
+                    <textarea name="description" rows="3" ><%= foundation[0].description %></textarea>
+                    <label>Description</label>
+                </div>
+                <div class="input-group ">
+                    <input value="<%= foundation[0].category %>" type="text" name="category" >
+                    <label>category</label>
+                </div>
+                <div class="input-group">
+                    <input value="<%= foundation[0].email %>" type="email" name="email" >
+                    <label>Email Address</label>
+                </div>
+
+                <div class="input-group">
+                    <input value="<%= foundation[0].phone %>" type="tel" name="phone" >
+                    <label>Phone Number</label>
+                </div>
+                <div class="input-group">
+                    <input value="<%= foundation[0].password %>" type="password" name="password" >
+                    <label>Password</label>
+                </div>
+
+                <div class="input-group">
+                    <input  type="file" name="logo_image" placeholder="Image URL or Path">
+                    <label class="static-label">Logo Image URL</label>
+                </div>
+
+                <div class="input-group">
+                    <input value="<%= foundation[0].created_year %>" type="number" name="created_year" min="1800" max="2025" >
+                    <label>Year Created</label>
+                </div>
+
+                <div class="input-group full-width">
+                    <input value="<%= foundation[0].address %>" type="text" name="address" >
+                    <label>Physical Address</label>
+                </div>
+                <div class="input-group">
+                    <input value="<%= foundation[0].upi_id %>" type="text" name="upi_id">
+                    <label>upi_id</label>
+                </div>
+                <div class="input-group">
+                    <input value="<%= foundation[0].website %>" type="url" name="website">
+                    <label>Website URL</label>
+                </div>
+
+                <div class="input-group ">
+                    <select name="status" class="text-info">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                    <label class="static-label">Status</label>
+                </div>
+
+                <div class="social-section full-width">
+                    <h3 class="">Social Media Links</h3>
+                    <div class="social-grid mt-4">
+                        <div class="input-group">
+                            <input value="<%= foundation[0].facebook %>" type="text" name="facebook">
+                            <label>Facebook</label>
+                        </div>
+                        <div class="input-group">
+                            <input value="<%= foundation[0].instagram %>" type="text" name="instagram">
+                            <label>Instagram</label>
+                        </div>
+                        <div class="input-group">
+                            <input value="<%= foundation[0].twitter %>" type="text" name="twitter">
+                            <label>Twitter</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn ">update</button>
+        </form>
+    </div>
+
+<%-include("footer") %>

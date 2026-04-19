@@ -1,0 +1,80 @@
+<%-include("navbar") %>
+
+    <div class="container bg-dark p-4 rounded-lg">
+        <form action="/admin/save_slider" method="post" enctype="multipart/form-data">
+            <h1 class="heading"> Add Slider</h1> <br><br>
+            <div class="row ">
+                <div class="col-md-4  ">Slider title <br>
+                    <input class="form-control inp_bg mt-2" type="text" name="slider_title" id="">
+                </div>
+                <div class="col-md-4 ">Slider discription <br>
+                    <input class="form-control inp_bg mt-2" type="text" name="slider_discription" id="">
+                </div>
+                <div class="col-md-4 ">Slider image <br>
+                    <input class="form-control inp_bg mt-2" type="file" name="slider_image" id="">
+                </div>
+
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    Slider Button URL <br>
+                    <input class="form-control inp_bg mt-2" type="text" name="slider_btn_url" id="">
+                </div>
+
+                <div class="col-md-6">
+                    Slider Button Text <br>
+                    <input class="form-control inp_bg mt-2" type="text" name="slider_btn_text" id="">
+
+                </div>
+                <div class="col-md-12 mt-5 text-center">
+                    <button class="btn btn-success form-control w-50 ">Add Slider</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="container my-5">
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <h3 class="heading text-center">📸 Slider List</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <% slider.map(function(item,i){ %>
+                <div class="col-md-4 mb-4">
+                    <div class="card slider-card text-dark">
+
+                        <div class="img-wrapper">
+                            <img src="/upload/<%= item.slider_image %>" class="slider-img">
+                        </div>
+
+                        <div class="card-body slider-content">
+                            <span class="badge badge-active" title="active for user">Active</span>
+
+                            <h5 class="slider-title mt-3">
+                                <%= item.slider_title %>
+                            </h5>
+
+                            <p class="slider-desc">
+                                <%= item.slider_discription %>
+                            </p>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="/admin/edit_slider/<%= item.slider_id %>" class="btn btn-outline-primary btn-sm">
+                                    ✏️ Edit
+                                </a>
+                                <a href="/admin/delete/<%= item.slider_id %>" class="btn btn-outline-danger btn-sm">
+                                    🗑 Delete
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+
+
+    <%-include("footer") %>

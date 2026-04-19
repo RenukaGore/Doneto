@@ -1,0 +1,145 @@
+<%-include("navbar")%>
+<div class="topbar d-flex align-items-center justify-content-between bg-dark">
+        <button class="btn btn-light d-md-none" id="menuToggle">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <h4 class="fw-bold text-light">
+                <i class="fa fa-hand-holding-dollar text-success me-2"></i>
+                Fund Details
+            </h4>
+
+        <div class="admin-profile d-flex align-items-center">
+            <img src="/upload/<%= foundation[0].logo_image %>" alt="Admin">
+        </div>  
+    </div>
+<style>
+    /* Card */
+
+.fund-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+/* Table */
+.fund-table thead {
+    background: linear-gradient(135deg, #111, #333);
+    color: #fff;
+}
+
+.fund-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.fund-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.fund-table tbody tr:hover {
+    background-color: rgba(16, 153, 89, 0.858);
+    cursor: pointer;
+}
+
+/* Amount highlight */
+.amount {
+    font-weight: 700;
+    color: #119356;
+}
+
+/* Animation */
+.animate-fade {
+    animation: fadeSlide 0.7s ease forwards;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Badge polish */
+.badge {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    background-color: #198754;
+}
+
+</style>
+
+
+<div class="container my-5">
+    <div class="fund-card shadow-lg animate-fade">
+        
+
+        <div class="table-responsive">
+            <table class="table fund-table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Donor</th>
+                        <th>Distribution</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                <% if(dis_pen.length > 0){ %>
+                    <% dis_pen.forEach((row, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td class="fw-semibold"><%= row.donor_name %></td>
+                            <td>
+                                <span class="badge">
+                                    <%= row.distribution %>
+                                </span>
+                            </td>
+                            <td class="amount">₹<%= row.amount %></td>
+                            <td class="text-muted"><%= row.date %></td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+<hr>
+                <% if(fund_done.length > 0){ %>
+                    <% fund_done.forEach((row, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td class="fw-semibold"><%= row.donor_name %></td>
+                            <td>
+                                <span class="badge">
+                                    <%= row.distribution %>
+                                </span>
+                            </td>
+                            <td class="amount">₹<%= row.amount %></td>
+                            <td class="text-muted"><%= row.date %></td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            <i class="fa fa-circle-info me-2"></i>
+                            No fund distribution pending
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%-include("footer")%>

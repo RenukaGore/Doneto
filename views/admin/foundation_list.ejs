@@ -1,0 +1,141 @@
+<%-include("navbar") %>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-container">
+                    <h1 class="heading">Pending</h1>
+                    <table class="table custom-table">
+                        <thead >
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Foundation Name</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Website</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% pending_list.map(function(item, i){ %>
+                                <tr class="table-row">
+                                    <td>
+                                        <%= i + 1 %>
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        <%= item.foundation_name %>
+                                    </td>
+                                    <td>
+                                        <%= item.email %>
+                                    </td>
+                                    <td>
+                                        <%= item.foundation_address %>
+                                    </td>
+                                    <td><a href="<%= item.website %>" target="_blank" class="site-link">Visit
+                                            Site</a></td>
+                                    <td class="text-center">
+                                        <div class="action-btns">
+                                            <a href="/admin/approve/<%= item.foundation_id %>"><button class="btn btn-approve">Approve</button></a>
+                                            <a href="/admin/reject/<%= item.foundation_id %>"><button class="btn btn-reject">Reject</button></a>
+                                            <a href="/admin/foundation_info/<%= item.foundation_id %>"><button class="btn btn-primary">Details</button></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- approved pending_list  -->
+                 <div class="table-container">
+                    <h1 class="heading">Approved</h1>
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Foundation Name</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Website</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% approved_list.map(function(item, i){ %>
+                                <tr class="table-row">
+                                    <td>
+                                        <%= i + 1 %>
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        <%= item.foundation_name %>
+                                    </td>
+                                    <td>
+                                        <%= item.email %>
+                                    </td>
+                                    <td>
+                                        <%= item.address %>
+                                    </td>
+                                    <td><a href="<%= item.website %>" target="_blank" class="site-link">Visit
+                                            Site</a></td>
+                                    <td class="text-center">
+                                        <div class="action-btns">
+                                            <a href="/admin/reject/<%= item.foundation_id %>"><button class="btn btn-reject">Block</button></a>
+                                            <a href="/admin/foundation_info/<%= item.foundation_id %>"><button class="btn btn-primary">Details</button></a>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- rejected pending_list  -->
+                 <div class="table-container">
+                    <h1 class="heading">Rejected</h1>
+                    <table class="table custom-table">
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Foundation Name</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Website</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% rejected_list.map(function(item, i){ %>
+                                <tr class="table-row">
+                                    <td>
+                                        <%= i + 1 %>
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        <%= item.foundation_name %>
+                                    </td>
+                                    <td>
+                                        <%= item.email %>
+                                    </td>
+                                    <td>
+                                        <%= item.foundation_address %>
+                                    </td>
+                                    <td><a href="<%= item.website %>" target="_blank" class="site-link">Visit
+                                            Site</a></td>
+                                    <td class="text-center">
+                                        <div class="action-btns">
+                                            <a href="/admin/re_apply/<%= item.foundation_id %>"><button class="btn btn-approve">Send to re-apply</button></a>
+                                            <a href="/admin/foundation_info/<%= item.foundation_id %>"><button class="btn btn-primary">Details</button></a>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <%-include("footer") %>

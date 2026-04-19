@@ -1,0 +1,285 @@
+<%-include("style") %>
+    <%-include("header") %>
+        <style>
+            body {
+                background: #191b2f;
+                color: #fff;
+            }
+
+            /* HEADER */
+            .page-header {
+                text-align: center;
+                padding: 10px;
+                border-bottom: 1px solid white;
+                margin-bottom: 10px;
+                /* background: linear-gradient(135deg, #ffffff, #000000, #000000, #000000, #ffffff); */
+            }
+
+            .page-header h1 {
+                font-size: 40px;
+                font-weight: 600;
+            }
+
+            .page-header p {
+                margin-top: 10px;
+                opacity: 0.9;
+            }
+
+            /* FOUNDATION GRID */
+            .foundation-section {
+                padding: 60px 8%;
+            }
+
+            .foundation-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 30px;
+            }
+
+            /* CARD */
+            .foundation-card {
+                background: #111827;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+                transform: translateY(40px);
+                opacity: 0;
+                animation: fadeUp 0.8s ease forwards;
+            }
+
+            .foundation-card:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .foundation-card:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+
+            .foundation-card:nth-child(4) {
+                animation-delay: 0.6s;
+            }
+
+            .foundation-card:hover {
+                transform: translateY(-8px);
+                transition: 0.3s ease;
+            }
+
+            .foundation-image img {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+            }
+
+            .foundation-content {
+                padding: 20px;
+            }
+
+            .foundation-content h3 {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+
+            .foundation-content p {
+                font-size: 14px;
+                opacity: 0.8;
+                margin-bottom: 16px;
+                line-height: 1.5;
+            }
+
+            /* FOOTER CARD */
+            .foundation-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .foundation-footer span {
+                font-size: 14px;
+                color: #38bdf8;
+            }
+
+            .donate_btn {
+                background: #22c55e;
+                color: #000;
+                padding: 10px 18px;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 14px;
+                transition: 0.3s ease;
+            }
+
+            .donate_btn:hover {
+                background: #0e6930;
+                color: white;
+                transform: scale(1.05);
+            }
+
+            /* ANIMATION */
+            @keyframes fadeUp {
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            /* RESPONSIVE */
+            @media (max-width: 600px) {
+                .page-header h1 {
+                    font-size: 28px;
+                }
+            }
+
+            .category-bar {
+                display: flex;
+                gap: 14px;
+                background: #111827;
+                padding: 15px 20px;
+                border-radius: 14px;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+                overflow-x: auto;
+            }
+            
+            .category-bar::-webkit-scrollbar {
+                display: none;
+            }
+
+            .category-item {
+                padding: 10px 20px;
+                border-radius: 30px;
+                font-size: 14px;
+                cursor: pointer;
+                white-space: nowrap;
+                color: #e5e7eb;
+                background: #1f2937;
+                transition: 0.3s ease;
+            }
+
+            .category-item:hover {
+                background: #2563eb;
+                color: #fff;
+                transform: translateY(-2px);
+            }
+
+            /* ACTIVE CATEGORY */
+            .category-item.active {
+                background: linear-gradient(135deg, #225bc5, #110e6b);
+                color: #ffffff;
+                font-weight: 600;
+            }
+
+            /* RESPONSIVE */
+            @media(max-width:600px) {
+                .category-bar {
+                    padding: 12px;
+                }
+
+                .category-item {
+                    font-size: 13px;
+                    padding: 8px 16px;
+                }
+            }
+            #searchInput{
+                background: transparent;
+                margin-left: 37.5%;
+                color: white;
+            }
+        </style>
+
+        <!-- HEADER -->
+        <section class="page-header">
+            <h1>Trusted Foundations</h1>
+            <p>Support verified foundations and make a real impact</p>
+        </section>
+        <div class="d-flex justify-content-between text-white align-items-center mt-4 mb-4">
+            <input type="text" id="searchInput" class="form-control w-25" placeholder="Search Foundation...">
+        </div>
+        <h5 class="text-center">categories</h5>
+
+        <div class="category-bar">
+            <a href="/foundation_page" class="category-item ">All</a>
+            <% categories.forEach(cat=> { %>
+                <a href="/foundation_page?category_name=<%= cat.category%>" class="category-item <%= cat.status %>">
+                    <%= cat.category %>
+                </a>
+                <% }) %>
+        </div>
+
+
+        <!-- FOUNDATION LIST -->
+        <section class="foundation-section">
+            <div class="foundation-grid">
+
+                <% foundation_list.map(function(item,i){ %>
+                    <div class="foundation-card">
+                        <div class="foundation-image">
+                            <img src="/upload/<%= item.logo_image %>" alt="">
+                        </div>
+                        <div class="foundation-content">
+                            <h3>
+                                <%= item.foundation_name %>
+                            </h3>
+                            <h4 style="font-size: small;">
+                                <%= item.category %>.
+                            </h4>
+                            <p>
+                                <%= item.description %>.
+                            </p>
+
+                            <div class="foundation-footer">
+                                <span> since <%= item.created_year %></span>
+                                <a href="/foundation_details/<%= item.foundation_id %>">info</a>
+                                <a href="/donate/<%= item.foundation_id %>" class=" donate_btn">Donate</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+
+                        <!-- CARD 2 -->
+                        <!-- <div class="foundation-card">
+                <div class="foundation-image">
+                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d" alt="">
+                </div>
+                <div class="foundation-content">
+                    <h3>Save Life Trust</h3>
+                    <p>Focused on emergency medical aid and life-saving operations across India.</p>
+
+                    <div class="foundation-footer">
+                        <span>Active since 2018</span>
+                        <a href="#" class="donate_btn">Donate</a>
+                    </div>
+                </div>
+            </div> -->
+
+                        <!-- CARD 3 -->
+                        <!-- <div class="foundation-card">
+                <div class="foundation-image">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="">
+                </div>
+                <div class="foundation-content">
+                    <h3>Bright Future NGO</h3>
+                    <p>Empowering children through education, mentorship, and digital learning.</p>
+
+                    <div class="foundation-footer">
+                        <span>Active since 2020</span>
+                        <a href="#" class="donate_btn">Donate</a>
+                    </div>
+                </div>
+            </div> -->
+
+            </div>
+        </section>
+        <br><br><br>
+        <script>
+            document.getElementById("searchInput").addEventListener("keyup", function () {
+                let value = this.value.toLowerCase();
+                let rows = document.querySelectorAll("#donorTable tr");
+
+                rows.forEach(row => {
+                    row.style.display = row.innerText.toLowerCase().includes(value)
+                        ? ""
+                        : "none";
+                });
+            });
+        </script>
+        <%-include("footer") %>

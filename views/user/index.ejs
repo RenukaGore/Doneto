@@ -1,0 +1,53 @@
+<%-include("style")%>
+<%-include("navbar")%>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4 text-light">🌍 Our Foundations</h2>
+
+    <div class="foundation-grid">
+
+        <% foundation_list.forEach(function(item){ %>
+        <div class="foundation-card">
+
+            <!-- LOGO -->
+            <div class="logo-box">
+                <img src="/upload/<%= item.logo_image %>" alt="Logo">
+                <p style="color: white;"><%= item.category %></p>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="foundation-body">
+                <h4><%= item.foundation_name %></h4>
+                <p class="desc"><%= item.description %></p>
+
+                <ul class="info">
+                    <li><i class="fas fa-envelope"></i> <%= item.email %></li>
+                    <li><i class="fas fa-phone"></i> <%= item.phone %></li>
+                    <li><i class="fas fa-location-dot"></i> <%= item.address %></li>
+                    <li><i class="fas fa-calendar"></i> Founded: <%= item.created_year %></li>
+                </ul>
+
+                <!-- ACTIONS -->
+                <div class="card-actions">
+                    <a href="/donate/<%= item.foundation_id %>" class="donate-btn1">
+                        <i class="fas fa-hand-holding-heart"></i> Donate
+                    </a>
+                </div>
+
+                <!-- SOCIAL -->
+                <div class="social-icons">
+                    <a href="<%= item.facebook %>" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="<%= item.instagram %>" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="<%= item.twitter %>" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+        </div>
+        <% }) %>
+
+    </div>
+</div>
+
+
+
+<%-include("footer")%>
